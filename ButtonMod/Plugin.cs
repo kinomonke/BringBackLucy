@@ -1,8 +1,8 @@
 ﻿using BepInEx;
 using BepInEx.Configuration;
 using ButtonMod.Behaviours;
+using ButtonMod.Behaviours.Audio;
 using HarmonyLib;
-using UnityEngine;
 
 namespace ButtonMod
 {
@@ -17,13 +17,9 @@ namespace ButtonMod
             Instance = this;
             ButtonMod.Tools.Logging.Logger = Logger;
 
-            // Setup config
             BringLucyBackConfig = Config.Bind("General", "HasHeardWarning", false, "True if the player has already heard the warning audio.");
-
-            // Patch harmony
             Harmony.CreateAndPatchAll(typeof(Plugin).Assembly, Constants.GUID);
 
-            // Add mod components
             gameObject.AddComponent<ModInitializer>();
             gameObject.AddComponent<ModWarningAudio>();
         }

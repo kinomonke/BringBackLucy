@@ -1,4 +1,5 @@
-﻿using ButtonMod.Tools;
+﻿using ButtonMod.Behaviours.Visual;
+using ButtonMod.Tools;
 using GorillaLocomotion;
 using Photon.Pun;
 using System.Collections.Generic;
@@ -29,12 +30,9 @@ namespace ButtonMod.Behaviours
 
             lucyManagerPrefab = GameObject.Find("Environment Objects/05Maze_PersistentObjects/Ghosts/Halloween Ghost");
 
-            Initialized = true;
-
             var hash = new ExitGames.Client.Photon.Hashtable();
             hash.Add(Constants.NAME, Constants.VERSION);
 
-            PhotonNetwork.LocalPlayer.CustomProperties = hash;
             PhotonNetwork.SetPlayerCustomProperties(hash);
 
             if (handBlockPrefab != null)
@@ -49,6 +47,7 @@ namespace ButtonMod.Behaviours
                 if (doorTrigger != null)
                 {
                     Destroy(doorTrigger);
+                    instantiatedHandBlock.AddComponent<HandButton>();
                 }
             }
 
@@ -59,6 +58,9 @@ namespace ButtonMod.Behaviours
 
             if (clonedLucyObj != null)
                 clonedLucyObj.SetActive(false);
+
+            Initialized = true;
+
         });
 
         private int lastTriggeredFrame = -1;
@@ -75,8 +77,7 @@ namespace ButtonMod.Behaviours
             }
             lastTriggeredFrame = Time.frameCount;
             TriggeredEvent.Invoke();
-            var blocker = gameObject.AddComponent<VisionBlocker>();
-            blocker.BlockVisionForTime();
+
         }
 
         private void OnTriggerExit(Collider other)
