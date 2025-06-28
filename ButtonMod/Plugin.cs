@@ -2,6 +2,7 @@
 using BepInEx.Configuration;
 using ButtonMod.Behaviours;
 using ButtonMod.Behaviours.Audio;
+using ButtonMod.Tools;
 using HarmonyLib;
 
 namespace ButtonMod

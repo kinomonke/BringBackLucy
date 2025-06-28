@@ -1,4 +1,5 @@
 ﻿using ButtonMod.Tools;
+using ButtonMod.Tools;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,19 +12,11 @@ namespace ButtonMod.Behaviours.Audio
     public class ButtonPressedAudio : MonoBehaviour
     {
         private AudioSource audioSource;
-        void Start()
-        {
-            if (Plugin.BringLucyBackConfig.Value)
-            {
-                return;
-            }
 
-            StartCoroutine(PlayHorrorAudio());
-        }
 
         private IEnumerator PlayHorrorAudio()
         {
-            string url = "https://raw.githubusercontent.com/kinomonke/BringBackLucy/main/ButtonMod/AudioSources/openingGameWarning.mp3";
+            string url = "https://raw.githubusercontent.com/kinomonke/BringBackLucy/main/ButtonMod/AudioSources/onButtonPressedAudio.mp3";
 
             using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(url, AudioType.MPEG))
             {

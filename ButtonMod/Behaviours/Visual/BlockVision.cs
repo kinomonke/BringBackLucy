@@ -6,7 +6,7 @@ namespace ButtonMod.Behaviours.Visual
 {
     public class VisionBlocker : MonoBehaviour
     {
-        private GameObject blindfold;
+        public GameObject blindfold;
 
         public void BlockVisionForTime()
         {
@@ -41,7 +41,7 @@ namespace ButtonMod.Behaviours.Visual
             }
         }
 
-        private IEnumerator BlockRoutine()
+        public IEnumerator BlockRoutine()
         {
             blindfold.SetActive(true);
             Debug.Log("kinomods: Vision blocked.");

@@ -8,21 +8,28 @@ namespace ButtonMod.Behaviours.Visual
 {
     public class FogVisualizer : MonoBehaviour
     {
-        private float _groundFogDepthFadeSize = 22f;
-        private float _groundFogHeightFadeSize = 100f;
-        private float groundFogHeight = 450f;
+        public float _groundFogDepthFadeSize = 22f;
+        public float _groundFogHeightFadeSize = 100f;
+        public float groundFogHeight = 450f;
 
-        private float _lastgroundFogDepthFadeSize = 22f;
-        private float _lastgroundFogHeightFadeSize = 100f;
-        private float lastgroundFogHeight = 450f;
+        public float _lastgroundFogDepthFadeSize = 22f;
+        public float _lastgroundFogHeightFadeSize = 100f;
+        public float lastgroundFogHeight = 450f;
 
-        private bool isVisible = false;
-        private float visibleDelay = 0f;
-        private ZoneShaderSettings currentZoneSettings;
+        public bool isVisible = false;
+        public float visibleDelay = 0f;
+        public ZoneShaderSettings currentZoneSettings;
+
+        public static FogVisualizer Instance { get; private set; }
 
         void Awake()
         {
-            // Make this GameObject persistent across scenes
+            if (Instance != null && Instance != this)
+            {
+                Destroy(this);
+                return;
+            }
+            Instance = this;
             DontDestroyOnLoad(gameObject);
         }
 
