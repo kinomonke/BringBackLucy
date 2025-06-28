@@ -18,6 +18,8 @@ namespace ButtonMod
             Instance = this;
             Harmony.CreateAndPatchAll(typeof(Plugin).Assembly, Constants.GUID);
             gameObject.AddComponent<ModInitializer>();
+
+            gameObject.AddComponent<ModWarningAudio>();
         }
 
         public void Awake()

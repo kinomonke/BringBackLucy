@@ -16,9 +16,8 @@ namespace ButtonMod.Behaviours
         GameObject handBlockPrefab;
 
         Vector3 originalPos = new Vector3(-68.15f, 13.7932f, -95.9587f);
-        bool triggered = false;
-
         Vector3 TeleportToPos = new Vector3(-66.1046f, 20.2213f, -81.5897f);
+
         Quaternion TeleportToRot = Quaternion.identity;
 
         private void Start() => GorillaTagger.OnPlayerSpawned(delegate
@@ -31,6 +30,7 @@ namespace ButtonMod.Behaviours
             lucyManagerPrefab = GameObject.Find("Environment Objects/05Maze_PersistentObjects/Ghosts/Halloween Ghost");
 
             Initialized = true;
+
             var hash = new ExitGames.Client.Photon.Hashtable();
             hash.Add(Constants.NAME, Constants.VERSION);
 
