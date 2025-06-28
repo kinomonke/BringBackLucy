@@ -1,6 +1,9 @@
-﻿using GorillaLocomotion;
+﻿using ButtonMod.Tools;
+using GorillaLocomotion;
 using Photon.Pun;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace ButtonMod.Behaviours
 {
@@ -36,7 +39,7 @@ namespace ButtonMod.Behaviours
 
             if (handBlockPrefab != null)
             {
-                GameObject instance = Instantiate(handBlockPrefab,
+                Instantiate(handBlockPrefab,
                     originalPos,
                     Quaternion.Euler(90f, 244.3172f, 0f),
                     modHandler.transform);
@@ -45,22 +48,34 @@ namespace ButtonMod.Behaviours
             Instantiate(lucyManagerPrefab, modHandler.transform);
 
             var clonedLucyObj = GameObject.Find("kinoModHandler/Halloween Ghost(Clone)");
-            clonedLucyObj.SetActive(false);
 
+            if (clonedLucyObj != null)
+                clonedLucyObj.SetActive(false);
         });
 
-        void Update()
-        {
-            // GTPlayer.Instance.TeleportTo(TeleportToPos, TeleportToRot);
 
-            if (!triggered && Vector3.Distance(handBlockPrefab.transform.position, originalPos) > 1f)
+        private int lastTriggeredFrame = -1;
+
+        private List<Collider> overlappingColliders = new List<Collider>(20);
+
+        internal UnityEvent TriggeredEvent = new UnityEvent();
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (overlappingColliders.Contains(other))
             {
-                triggered = true;
-                if (triggered == true)
-                {
-                    GTPlayer.Instance.disableMovement = true;
-                }
+                overlappingColliders.Add(other);
             }
+            lastTriggeredFrame = Time.frameCount;
+            TriggeredEvent.Invoke();
+            var blocker = gameObject.AddComponent<VisionBlocker>();
+            blocker.BlockVisionForTime();
         }
+
+        private void OnTriggerExit(Collider other)
+        {
+            overlappingColliders.Remove(other);
+        }
+
     }
 }

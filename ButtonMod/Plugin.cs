@@ -18,7 +18,11 @@ namespace ButtonMod
             Instance = this;
             Harmony.CreateAndPatchAll(typeof(Plugin).Assembly, Constants.GUID);
             gameObject.AddComponent<ModInitializer>();
-            gameObject.AddComponent<FogVisualizer>();
+        }
+
+        public void Awake()
+        {
+            ButtonMod.Tools.Logging.Logger = Logger;
         }
     }
     public class Constants
