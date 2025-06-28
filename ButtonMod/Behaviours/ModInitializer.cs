@@ -39,11 +39,19 @@ namespace ButtonMod.Behaviours
 
             if (handBlockPrefab != null)
             {
-                Instantiate(handBlockPrefab,
+                var instantiatedHandBlock = Instantiate(
+                    handBlockPrefab,
                     originalPos,
                     Quaternion.Euler(90f, 244.3172f, 0f),
                     modHandler.transform);
+
+                var doorTrigger = instantiatedHandBlock.GetComponent<GTDoorTrigger>();
+                if (doorTrigger != null)
+                {
+                    Destroy(doorTrigger);
+                }
             }
+
 
             Instantiate(lucyManagerPrefab, modHandler.transform);
 
