@@ -2,8 +2,6 @@
 using BepInEx.Configuration;
 using ButtonMod.Behaviours;
 using HarmonyLib;
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace ButtonMod
@@ -12,22 +10,26 @@ namespace ButtonMod
     public class Plugin : BaseUnityPlugin
     {
         public static Plugin Instance;
+        public static ConfigEntry<bool> BringLucyBackConfig;
 
-        private Plugin()
+        private void Awake()
         {
             Instance = this;
-            Harmony.CreateAndPatchAll(typeof(Plugin).Assembly, Constants.GUID);
-            gameObject.AddComponent<ModInitializer>();
+            ButtonMod.Tools.Logging.Logger = Logger;
 
+            // Setup config
+            BringLucyBackConfig = Config.Bind("General", "HasHeardWarning", false, "True if the player has already heard the warning audio.");
+
+            // Patch harmony
+            Harmony.CreateAndPatchAll(typeof(Plugin).Assembly, Constants.GUID);
+
+            // Add mod components
+            gameObject.AddComponent<ModInitializer>();
             gameObject.AddComponent<ModWarningAudio>();
         }
-
-        public void Awake()
-        {
-            ButtonMod.Tools.Logging.Logger = Logger;
-        }
     }
-    public class Constants
+
+    public static class Constants
     {
         public const string GUID = "kino.bringbacklucy";
         public const string NAME = "BringBackLucy";

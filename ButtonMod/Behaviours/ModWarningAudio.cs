@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using ButtonMod.Tools;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -10,12 +11,18 @@ namespace ButtonMod.Behaviours
 
         void Start()
         {
-            StartCoroutine(PlayAudioFromWeb());
+            if (Plugin.BringLucyBackConfig.Value)
+            {
+                Logging.Log("kinomods: Warning already heard, skipping audio.");
+                return;
+            }
+
+            StartCoroutine(PlayWarningMessage());
         }
 
-        private IEnumerator PlayAudioFromWeb()
+        private IEnumerator PlayWarningMessage()
         {
-            string url = "https://raw.githubusercontent.com/kinomonke/BringBackLucy/main/ButtonMod/AudioSources/openingGameWarningMessage.mp3";
+            string url = "https://raw.githubusercontent.com/kinomonke/BringBackLucy/main/ButtonMod/AudioSources/openingGameWarning.mp3";
 
             using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(url, AudioType.MPEG))
             {
@@ -23,14 +30,14 @@ namespace ButtonMod.Behaviours
 
                 if (www.result != UnityWebRequest.Result.Success)
                 {
-                    Debug.LogError($"[BringBackLucy] Failed to load audio from web: {www.error}");
+                    Logging.Error($"kinomods: Failed to load audio from web: {www.error}");
                     yield break;
                 }
 
                 AudioClip clip = DownloadHandlerAudioClip.GetContent(www);
                 if (clip == null)
                 {
-                    Debug.LogError("[BringBackLucy] AudioClip is null");
+                    Logging.Error("kinomods: AudioClip is null");
                     yield break;
                 }
 
@@ -40,7 +47,12 @@ namespace ButtonMod.Behaviours
                 audioSource.loop = false;
 
                 audioSource.Play();
-                Debug.Log("[BringBackLucy] Playing web-loaded warning audio.");
+                Logging.Log("kinomods: Playing Audio.");
+
+                yield return new WaitForSeconds(clip.length);
+
+                Plugin.BringLucyBackConfig.Value = true; // Set config to true
+                Logging.Log("kinomods: Audio finished. Config updated.");
             }
         }
     }

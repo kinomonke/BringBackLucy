@@ -53,7 +53,6 @@ namespace ButtonMod.Behaviours
                 clonedLucyObj.SetActive(false);
         });
 
-
         private int lastTriggeredFrame = -1;
 
         private List<Collider> overlappingColliders = new List<Collider>(20);
@@ -76,6 +75,5 @@ namespace ButtonMod.Behaviours
         {
             overlappingColliders.Remove(other);
         }
-
     }
 }
