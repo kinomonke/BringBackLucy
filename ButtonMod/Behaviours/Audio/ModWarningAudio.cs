@@ -47,12 +47,15 @@ namespace ButtonMod.Behaviours.Audio
                 audioSource.loop = false;
 
                 audioSource.Play();
-                Logging.Log("kinomods: Playing Audio.");
+                Logging.Log("kinomods: Playing warning audio.");
 
                 yield return new WaitForSeconds(clip.length);
 
-                Plugin.BringLucyBackConfig.Value = true; // Set config to true
-                Logging.Log("kinomods: Audio finished. Config updated.");
+                if (!Plugin.BringLucyBackConfig.Value)
+                {
+                    Plugin.BringLucyBackConfig.Value = true;
+                    Logging.Log("kinomods: Audio finished. Config updated to reflect it was heard.");
+                }
             }
         }
     }

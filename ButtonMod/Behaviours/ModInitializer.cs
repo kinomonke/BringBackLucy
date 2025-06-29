@@ -1,10 +1,10 @@
-﻿using ButtonMod.Behaviours.Visual;
-using ButtonMod.Tools;
+﻿using ButtonMod.Behaviours;
 using GorillaLocomotion;
 using Photon.Pun;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using ButtonMod.Tools;
 
 namespace ButtonMod.Behaviours
 {
@@ -13,13 +13,9 @@ namespace ButtonMod.Behaviours
         public static bool Initialized;
 
         GameObject modHandler;
-        GameObject lucyManagerPrefab;
         GameObject handBlockPrefab;
 
         Vector3 originalPos = new Vector3(-68.15f, 13.7932f, -95.9587f);
-        Vector3 TeleportToPos = new Vector3(-66.1046f, 20.2213f, -81.5897f);
-
-        Quaternion TeleportToRot = Quaternion.identity;
 
         private void Start() => GorillaTagger.OnPlayerSpawned(delegate
         {
@@ -27,13 +23,6 @@ namespace ButtonMod.Behaviours
                 "DungeonDoor_Prefab/DungeonHandBlock_Prefab_Outside");
 
             modHandler = new GameObject("kinoModHandler");
-
-            lucyManagerPrefab = GameObject.Find("Environment Objects/05Maze_PersistentObjects/Ghosts/Halloween Ghost");
-
-            var hash = new ExitGames.Client.Photon.Hashtable();
-            hash.Add(Constants.NAME, Constants.VERSION);
-
-            PhotonNetwork.SetPlayerCustomProperties(hash);
 
             if (handBlockPrefab != null)
             {
@@ -50,14 +39,6 @@ namespace ButtonMod.Behaviours
                     instantiatedHandBlock.AddComponent<HandButton>();
                 }
             }
-
-
-            Instantiate(lucyManagerPrefab, modHandler.transform);
-
-            var clonedLucyObj = GameObject.Find("kinoModHandler/Halloween Ghost(Clone)");
-
-            if (clonedLucyObj != null)
-                clonedLucyObj.SetActive(false);
 
             Initialized = true;
 
