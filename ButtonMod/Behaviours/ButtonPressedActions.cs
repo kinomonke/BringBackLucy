@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace ButtonMod.Behaviours
+namespace BringBackLucy.Behaviours
 {
     public class ButtonPressedActions : MonoBehaviour
     {

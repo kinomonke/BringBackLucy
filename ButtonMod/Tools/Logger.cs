@@ -1,6 +1,6 @@
 ﻿using BepInEx.Logging;
 
-namespace ButtonMod.Tools
+namespace BringBackLucy.Tools
 {
     public class Logging
     {

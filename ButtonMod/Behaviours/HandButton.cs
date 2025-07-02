@@ -1,6 +1,6 @@
 ﻿using BepInEx;
-using ButtonMod.Behaviours;
-using ButtonMod.Tools;
+using BringBackLucy.Behaviours;
+using BringBackLucy.Tools;
 using GorillaLocomotion;
 using GorillaTag.Rendering;
 using HarmonyLib;
@@ -10,7 +10,7 @@ using System.Reflection;
 using UnityEngine;
 using UnityEngine.Networking;
 
-namespace ButtonMod.Tools
+namespace BringBackLucy.Tools
 {
     public class HandButton : GTDoorTrigger
     {

@@ -1,12 +1,9 @@
-﻿using ButtonMod.Behaviours;
-using GorillaLocomotion;
-using Photon.Pun;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using ButtonMod.Tools;
+using BringBackLucy.Tools;
 
-namespace ButtonMod.Behaviours
+namespace BringBackLucy.Behaviours
 {
     public class ModInitializer : MonoBehaviour
     {

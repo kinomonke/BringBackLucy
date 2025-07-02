@@ -1,9 +1,9 @@
-﻿using ButtonMod.Tools;
+﻿using BringBackLucy.Tools;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Networking;
 
-namespace ButtonMod.Behaviours.Audio
+namespace BringBackLucy.Behaviours.Audio
 {
     public class ModWarningAudio : MonoBehaviour
     {

@@ -1,10 +1,10 @@
 ﻿using BepInEx;
 using BepInEx.Configuration;
-using ButtonMod.Behaviours;
-using ButtonMod.Behaviours.Audio;
+using BringBackLucy.Behaviours;
+using BringBackLucy.Behaviours.Audio;
 using HarmonyLib;
 
-namespace ButtonMod
+namespace BringBackLucy
 {
     [BepInPlugin(Constants.GUID, Constants.NAME, Constants.VERSION)]
     public class Plugin : BaseUnityPlugin
@@ -15,7 +15,7 @@ namespace ButtonMod
         private void Awake()
         {
             Instance = this;
-            ButtonMod.Tools.Logging.Logger = Logger;
+            BringBackLucy.Tools.Logging.Logger = Logger;
 
             BringLucyBackConfig = Config.Bind(
                 "General",

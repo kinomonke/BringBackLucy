@@ -1,9 +1,8 @@
 ﻿using UnityEngine;
-using ButtonMod.Tools;
+using BringBackLucy.Tools;
 using System.Collections;
 
-
-namespace ButtonMod.Behaviours
+namespace BringBackLucy.Behaviours
 {
     public class LucyManager : MonoBehaviour
     {
