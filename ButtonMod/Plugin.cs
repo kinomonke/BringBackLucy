@@ -34,5 +34,6 @@ namespace ButtonMod
         public const string GUID = "kino.bringbacklucy";
         public const string NAME = "BringBackLucy";
         public const string VERSION = "1.0.0";
+        public const string BUILDTIME = "21:00 | 02/07/2025";
     }
 }

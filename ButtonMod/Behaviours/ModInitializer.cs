@@ -41,7 +41,7 @@ namespace ButtonMod.Behaviours
             }
 
             Initialized = true;
-
+            Logging.Log("kinomods: Sucessfully Initialized!");
         });
 
         private int lastTriggeredFrame = -1;

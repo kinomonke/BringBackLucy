@@ -1,8 +1,10 @@
 ﻿using BepInEx;
 using ButtonMod.Behaviours;
 using ButtonMod.Tools;
+using GorillaLocomotion;
 using GorillaTag.Rendering;
 using HarmonyLib;
+using System;
 using System.Collections;
 using System.Reflection;
 using UnityEngine;
@@ -14,6 +16,10 @@ namespace ButtonMod.Tools
     {
         private bool isDebouncing = false;
         private AudioSource audioSource;
+        bool hasRunOnce = false;
+        public static event Action OnButtonFullyPressed;
+        Vector3 onPressedTeleportPos = new Vector3(-66.0787f, 21.8672f, -81.6381f);
+        Quaternion onPressedTeleportRot = Quaternion.Euler(0f, 0f, 0f);
 
         private void OnTriggerExit(Collider other)
         {
@@ -29,7 +35,7 @@ namespace ButtonMod.Tools
             }
             else
             {
-                Logging.Error("kinomods: Base OnTriggerExit method not found.");
+                Logging.Error("kinomods: Base trigger method not found.");
             }
 
             ButtonFullyPressed();
@@ -38,21 +44,35 @@ namespace ButtonMod.Tools
         void ButtonFullyPressed()
         {
             Logging.Log("kinomods: pressed button!");
+            BetterDayNightManager.instance.SetTimeOfDay(0);
 
-            var buttonPressedActions = gameObject.AddComponent<ButtonPressedActions>();
-            buttonPressedActions.AllActions();
-
+            gameObject.AddComponent<LucyManager>();
             StartCoroutine(PlayHorrorAudio());
             StartCoroutine(DebounceCoroutine());
-
-            BetterDayNightManager.instance.SetTimeOfDay(0);
             SpawnFog();
+            Pressed();
+            StartCoroutine(Pressed());
+            OnButtonFullyPressed?.Invoke();
+        }
+
+        public IEnumerator Pressed()
+        {
+            GTPlayer.Instance.disableMovement = true;
+            GTPlayer.Instance.TeleportTo(onPressedTeleportPos, onPressedTeleportRot);
+            GameObject.Find("Environment Objects/LocalObjects_Prefab/Forest").SetActive(true);
+            yield return new WaitForSeconds(20.35f);
+            GTPlayer.Instance.disableMovement = false;
         }
 
         private IEnumerator DebounceCoroutine()
         {
+            if (hasRunOnce) yield break;
+
             isDebouncing = true;
-            yield return new WaitForSeconds(1f);
+            hasRunOnce = true;
+
+            yield return new WaitForSeconds(999999f);
+
             isDebouncing = false;
         }
 
@@ -90,7 +110,7 @@ namespace ButtonMod.Tools
                 yield return new WaitForSeconds(clip.length);
                 Logging.Log("kinomods: Audio finished.");
             }
-        }
+        } // done
 
         private void SpawnFog()
         {
@@ -104,7 +124,7 @@ namespace ButtonMod.Tools
             {
                 Logging.Log("kinomods: FogVisualizer already exists.");
             }
-        }
+        } // done
     }
 
     public class FogVisualizer : MonoBehaviour
@@ -187,8 +207,6 @@ namespace ButtonMod.Tools
             _lastgroundFogHeightFadeSize = _groundFogHeightFadeSize;
             lastgroundFogHeight = groundFogHeight;
         }
-    }
+    } // done
 
 }
-
-

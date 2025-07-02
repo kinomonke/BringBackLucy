@@ -54,7 +54,7 @@ namespace ButtonMod.Behaviours.Audio
                 if (!Plugin.BringLucyBackConfig.Value)
                 {
                     Plugin.BringLucyBackConfig.Value = true;
-                    Logging.Log("kinomods: Audio finished. Config updated to reflect it was heard.");
+                    Logging.Log("kinomods: Audio finished. Config updated.");
                 }
             }
         }
