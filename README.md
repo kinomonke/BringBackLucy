@@ -1,4 +1,5 @@
 # BringBackLucy
+<img alt="GitHub Downloads (specific asset, all releases)" src="https://img.shields.io/github/downloads/kinomonke/BringBackLucy/BringBackLucy.dll">
 A Gorilla Tag mod that brings back lucy to the game! Simply head to the clouds entrance and look for the button with the Gorilla's hand on it, and press it!
 
 It's totally normal.. Right?
